@@ -1,8 +1,9 @@
-package ru.jabka.filmplus.model;
+package ru.jabki.filmplus.model;
 
 public class ApiError {
 
     final boolean success;
+
     final String message;
 
     public ApiError(final String message) {
@@ -11,10 +12,10 @@ public class ApiError {
     }
 
     public boolean isSuccess() {
-        return this.success;
+        return success;
     }
 
     public String getMessage() {
-        return this.message;
+        return message;
     }
 }

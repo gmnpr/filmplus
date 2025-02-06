@@ -1,4 +1,4 @@
-package ru.jabka.filmplus.exception;
+package ru.jabki.filmplus.exception;
 
 public class BadRequestException extends RuntimeException {
 

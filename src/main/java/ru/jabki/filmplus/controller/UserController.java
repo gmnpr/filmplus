@@ -1,4 +1,4 @@
-package ru.jabka.filmplus.controller;
+package ru.jabki.filmplus.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.jabka.filmplus.model.User;
-import ru.jabka.filmplus.service.UserService;
+import ru.jabki.filmplus.model.User;
+import ru.jabki.filmplus.service.UserService;
 
 @RestController
-@RequestMapping("/api/v1/user")
 @Tag(name = "Пользователи")
+@RequestMapping("/api/v1/user")
 public class UserController {
 
     private final UserService userService;
@@ -32,7 +32,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Получить пользователя по id")
-    public User get(@PathVariable final Long id) {
+    public User getById(@PathVariable("id") final Long id) {
         return userService.getById(id);
     }
 

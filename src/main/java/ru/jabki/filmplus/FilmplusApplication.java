@@ -1,4 +1,4 @@
-package ru.jabka.filmplus;
+package ru.jabki.filmplus;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
