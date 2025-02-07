@@ -1,42 +1,39 @@
 package ru.jabki.filmplus.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import ru.jabki.filmplus.exception.BadRequestException;
 import ru.jabki.filmplus.model.FriendRequest;
 import ru.jabki.filmplus.model.User;
+import ru.jabki.filmplus.repository.UserRepository;
 
 import java.util.HashSet;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
     private static final HashSet<User> users = new HashSet<>();
 
+    private final UserRepository userRepository;
+
+    @Transactional(rollbackFor = Exception.class)
     public User create(final User user) {
         validate(user);
-        user.setId((long) (users.size() + 1));
-        user.setFriends(new HashSet<>());
-        users.add(user);
-        return user;
+        return userRepository.insert(user);
     }
 
-    public User getById(final long id) {
-        final User user = users.stream().filter(u -> u.getId() == id).findFirst().orElse(null);
-        if (user == null) {
-            throw new BadRequestException(String.format("Пользователь с id %d не найден", id));
-        }
-        return user;
+    @Transactional(readOnly = true)
+    public User getById(final Long id) {
+        return userRepository.getById(id);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public User update(final User user) {
         validate(user);
-        final User existUser = getById(user.getId());
-        existUser.setName(user.getName());
-        existUser.setEmail(user.getEmail());
-        existUser.setLogin(user.getLogin());
-        existUser.setBirthday(user.getBirthday());
-        return existUser;
+        return userRepository.update(user);
     }
 
     public void addFriend(final FriendRequest request) {
